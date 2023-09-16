@@ -12,9 +12,9 @@ Automated pipeline with Jenkins
 4. Install AWS CLI
 5. Install Elastic Beanstalk CLI
 6. Jenkins CI/CD Pipeline
-7. 
-8. 
-9. System Design
+7. Troubleshooting
+8. System Design
+9. Additions
 
 ## Install Jenkins
 
@@ -134,27 +134,22 @@ Follow these steps:
   # Run this command
   export PATH=$PATH:$HOME/.local/bin
   ```
-* 
 
+* Change your working directory to the workspace of Jenkins
 
+  ```bash
+  cd /var/lib/jenkins/workspace/
+  ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+* Once inside the workspace directory and your branch directory
   
+  ```bash
+  # Initialize Elastic Beanstalk
+  eb init
+  
+  # Create the elastic Beanstalk environment
+  eb create
+  ```
 
 ## Jenkins CI/CD Pipeline
 
@@ -165,50 +160,46 @@ Once the credentials are complete Jenkins will start the pipeline
   * Look for a Jenkinfile inside the repository
   * This is the Jenkinsfile for this project
 
-    ```jenkinsfile
-        pipeline {
-    agent any
-    environment {
-        PACKAGE_VERSION = "1.0.0.${BUILD_NUMBER}"
-        ZIP_SOURCE_DIR = "${WORKSPACE}"
-        ZIP_OUTFILE = "${WORKSPACE}/build/${PACKAGE_VERSION}.zip"
+  ```jenkinsfile
+    pipeline {
+  agent any
+   stages {
+    stage ('Build') {
+      steps {
+        sh '''#!/bin/bash
+        python3 -m venv test3
+        source test3/bin/activate
+        pip install pip --upgrade
+        pip install -r requirements.txt
+        export FLASK_APP=application
+        flask run &
+        '''
+     }
+   }
+    stage ('test') {
+      steps {
+        sh '''#!/bin/bash
+        source test3/bin/activate
+        py.test --verbose --junit-xml test-reports/results.xml
+        ''' 
+      }
+    
+      post{
+        always {
+          junit 'test-reports/results.xml'
+        }
+       
+      }
     }
-    stages {
-        stage ('Build') {
-            steps {
-                sh '''#!/bin/bash
-                sudo apt install python3.10-venv -y
-                python3 -m venv test3
-                source test3/bin/activate
-                pip install pip --upgrade
-                pip install -r requirements.txt
-                export FLASK_APP=application
-                '''
-            }
-        }
-        stage ('Test') {
-            steps {
-                sh '''#!/bin/bash
-                source test3/bin/activate
-                py.test --verbose --junit-xml test-reports/results.xml
-                '''
-            }
-            post {
-                always {
-                    junit 'test-reports/results.xml'
-                }
-            }
-        }
-        stage ('Packaging the output files') {
-            steps {
-                 input(message: 'Proceed to the next step?', ok: 'Continue')
-                zip dir: env.ZIP_SOURCE_DIR, exclude: '', glob: '', zipFile: env.ZIP_OUTFILE, overwrite: true
-            }
-        }
+    stage ('Deploy') { 
+      steps { 
+        sh '/var/lib/jenkins/.local/bin/eb deploy' 
+      } 
     }
-
-}
-    ```
+    
+    }
+  } 
+  ```
 
 * Stages declared in the pipeline
   * Build
@@ -219,8 +210,7 @@ Once the credentials are complete Jenkins will start the pipeline
   * Packaging the output files
     * Manually authorize to take all the application files and zip it.
   * Deploy
-    * deploy to elastic beanstalk
-    * 
+    * Deploy the application to elastic beanstalk
 * Successful execution of all stages can be seen in the Jenkins GUI
 
   
@@ -264,3 +254,6 @@ Jenkins Pipeline
 Elastic Beanstalk Diagram
 
 ![system-design-eb](https://github.com/Antoniorios17/flask-app-jenkins-deployment/blob/main/images/d2-jenkins-eb-diagram.png)
+
+## Additions
+
