@@ -10,7 +10,7 @@ Automated pipeline with Jenkins
 2. Pre-requisites
 3. Create A Pipeline Build On Jenkins
 4. Install AWS CLI
-5. 
+5. Install Elastic Beanstalk CLI
 6. Jenkins CI/CD Pipeline
 7. 
 8. 
@@ -116,6 +116,25 @@ Follow these steps:
     # Default Output format: json
     ```
 
+## Install Elastic Beanstalk CLI
+
+* Connect to the EC2 instace running Jenkins
+* Create a password for the Jenkins User
+* Log it as the Jenkins user
+  
+  ```bash
+  sudo su jenkins
+  ```
+
+* Install Elastic Beanstalk CLI
+  
+  ```bash
+  pip install awsebcli --upgrade --user
+
+  # Run this command
+  export PATH=$PATH:$HOME/.local/bin
+  ```
+* 
 
 
 
@@ -134,7 +153,8 @@ Follow these steps:
 
 
 
-   * 
+
+  
 
 ## Jenkins CI/CD Pipeline
 
