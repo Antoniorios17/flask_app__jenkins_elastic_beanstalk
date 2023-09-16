@@ -260,6 +260,19 @@ Elastic Beanstalk Diagram
   * Add webhooks
   * In the payload URL
     * http://{public-ip-address}:8080/github-webhook/
-* If the webhook is set up correctly you will see a 200 ok http code
+* If the webhook is set up correctly you will see a 200 ok http response code
 
 ![webhook](https://github.com/Antoniorios17/flask_app_jenkins_elastic_beanstalk/blob/main/images/webhook.png)
+
+To test the webhook in my deployment I updated the colors of the website and let jenkins automate the changes on elastic beanstalk
+
+![website-modified](https://github.com/Antoniorios17/flask_app_jenkins_elastic_beanstalk/blob/main/images/url-shortener-modified.png)
+
+
+* More improvements
+  * Create email notification
+  * Create monitoring of the application
+  * Create metrics to track website success visits
+  * Connect slack notification with the pipeline
+  * Add manual authorization to run execute a stage in the pipeline
+  * Implement different branches for production and staging
