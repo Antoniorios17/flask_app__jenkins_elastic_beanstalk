@@ -214,15 +214,15 @@ Once the credentials are complete Jenkins will start the pipeline
 * Successful execution of all stages can be seen in the Jenkins GUI
 
   
-![jenkins-stages](https://github.com/Antoniorios17/flask-app-jenkins-deployment/blob/main/images/d2-jenkins-stages.png)
+![jenkins-stages](https://github.com/Antoniorios17/flask_app_jenkins_elastic_beanstalk/blob/main/images/jenkins-stages-3.png)
 
 deployed to elastic beanstalk
 
-![elastic-beanstalk](https://github.com/Antoniorios17/flask-app-jenkins-deployment/blob/main/images/d2-eb-ok-health.png)
+![elastic-beanstalk](https://github.com/Antoniorios17/flask_app_jenkins_elastic_beanstalk/blob/main/images/eb-console-ok.png)
 
-1.  The Flask app is now deployed on Elastic Beanstalk. Access it using the provided Domain Name.
+1. The Flask app is now deployed on Elastic Beanstalk. Access it using the provided Domain Name.
 
-![url-shortenet-webpage](https://github.com/Antoniorios17/flask-app-jenkins-deployment/blob/main/images/d2-app-website.png)
+![url-shortenet-webpage](https://github.com/Antoniorios17/flask_app_jenkins_elastic_beanstalk/blob/main/images/url-shorterner-website.png)
 
 ## Troubleshooting
 
