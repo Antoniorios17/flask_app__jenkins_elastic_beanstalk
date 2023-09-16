@@ -1,31 +1,17 @@
 # KuraLabs
 
 Deployment 3
-Build, test and deploy  a flask application on AWS Elastic Beanstalk. 
+Build, test and deploy  a flask application on AWS Elastic Beanstalk.
 Automated pipeline with Jenkins
 
 ## Table of contents
 
-1. Pre-requisites
-2. Install jenkins
-3. Create A Pipeline Build On Jenkins
-4. Jenkins CI/CD Pipeline
-5. Extract Build From EC2
-6. Deploy Application to Elastic Beanstalk
-7. System Design
-
-## Pre-requisites
-
-Install pre-requisites
-
-Install python virtual environment
-sudo apt install python3.10-venv -y
-
-Install pip | python package manager
-sudo apt install python3-pip -y
-
-Install unzip
-sudo apt install unzip
+1. Install jenkins
+2. Create A Pipeline Build On Jenkins
+3. Jenkins CI/CD Pipeline
+4. Extract Build From EC2
+5. Deploy Application to Elastic Beanstalk
+6. System Design
 
 ## Install Jenkins
 
@@ -40,7 +26,29 @@ sudo apt install unzip
     * 22 (ssh)
   * Storage 8 Gib gp2
   * Advance details:
-    * Use the automatic script installation for jenkins [here](https://github.com/Antoniorios17/flask-app-jenkins-deployment/blob/main/scripts/jenkins-installer.sh)
+    * Use the automatic script installation for jenkins [here](https://github.com/Antoniorios17/flask_app_jenkins_elastic_beanstalk/blob/main/scripts/jenkins-installer.sh)
+
+## Pre-requisites
+
+Before we start the working on jenkins we need to run the following commands:
+
+* Install python virtual environment
+
+  ```bash
+  sudo apt install python3.10-venv -y
+  ```
+
+* Install pip | python package manager
+
+  ```bash
+  sudo apt install python3-pip -y
+  ```
+
+* Install unzip
+
+  ```bash
+  sudo apt install unzip
+  ```
 
 ## Create a pipeline build on Jenkins
 
@@ -70,7 +78,7 @@ Once the credentials are complete Jenkins will start the pipeline
   * Look for a Jenkinfile inside the repository
   * This is the Jenkinsfile for this project
 
-    ```
+    ```jenkinsfile
         pipeline {
     agent any
     environment {
@@ -111,69 +119,26 @@ Once the credentials are complete Jenkins will start the pipeline
             }
         }
     }
+
 }
     ```
 
-  * Stages declared in the pipeline
-    * Build
-      * Install all the dependencies of the Flask application
-      * Create a virtual environment
-    * Test
-      * Run pytest to test functionality of the application
-    * Packaging the output files
-      * Manually authorize to take all the application files and zip it.
-  * Successful execution of all stages can be seen in the Jenkins GUI
+* Stages declared in the pipeline
+  * Build
+    * Install all the dependencies of the Flask application
+    * Create a virtual environment
+  * Test
+    * Run pytest to test functionality of the application
+  * Packaging the output files
+    * Manually authorize to take all the application files and zip it.
+  * Deploy
+    * deploy to elastic beanstalk
+    * 
+* Successful execution of all stages can be seen in the Jenkins GUI
   
 ![jenkins-stages](https://github.com/Antoniorios17/flask-app-jenkins-deployment/blob/main/images/d2-jenkins-stages.png)
 
-## Extract build from EC2
-
-* Once the pipeline finishes running you have a build created in zip form
-  * The application files have been compressed into a build that can be used along elastic beanstalk
-  * Follow these steps to extract the file from the EC2 instance to your local computer
-    * Find the zip file on the workspace directory
-      ```
-      /var/lib/jenkins/workspace/{project-name}/build/{build-version}
-      ```
-    * Create an ssh key from your local computer using :
-      ```
-      ssh-keygen
-      ```
-    * On the EC2 instance lookg for the .ssh directory in the /home/user directory.
-    * Edit the file authorized_users to include the public key of the local computer using nano
-    * From your local computer open the terminal and execute:
-      ```
-      scp ubuntu@{EC2-public-ip-address}:/var/lib/jenkins/workspace/{project-name}/build/{build-version}/archive.zip .
-      ```
-      This command will retrieve the file over ssh in a secure way to your local computer
-
-## Elastic Beanstalk Flask App Deployment
-
-1. Open AWS Console: [Elastic Beanstalk](us-east-1.console.aws.amazon.com/elasticbeanstalk).
-
-2. Click "Create application".
-
-3. Enter "url-shortener" as the app name.
-
-4. Choose "Python" platform.
-
-5. Select "Python 3.9 running on 64bit Amazon Linux 2023".
-
-6. Upload your zipped app code.
-
-7. Set version label to "v1".
-
-8. Select "ElasticEC2" instance profile.
-
-9. Choose your default VPC and an Availability Zone.
-
-10. Configure storage: 10 GB size, "General Purpose (SSD)".
-
-11. For instance types, select "T.2 MICRO".
-
-12. Click "Submit".
-
-13. Once environment health is "OK", note your Domain Name.
+deployed to elastic beanstalk
 
 ![elastic-beanstalk](https://github.com/Antoniorios17/flask-app-jenkins-deployment/blob/main/images/d2-eb-ok-health.png)
 
@@ -181,26 +146,26 @@ Once the credentials are complete Jenkins will start the pipeline
 
 ![url-shortenet-webpage](https://github.com/Antoniorios17/flask-app-jenkins-deployment/blob/main/images/d2-app-website.png)
 
-
 ## Troubleshooting
 
 * Issues to troubleshoot
   * The pipeline doesn't run after connecting to the repository
-    * Solutions: 
+    * Solutions:
       * Installing the plugin "Pipeline Utility Steps"
       * Important step! restart the controller after installing new plugins
   * Build stage fails
     * The build failed becuase it was missing python virtual environment
       * Solutions:
         * run the command on the terminal:
+
           ```
           sudo apt install python3.10-venv -y
           ```
+
         * This will install the virtual environment library to run the build stage
 
 * Important information
   * When using the jenkins installation script it will take a few minutes to run completely when added to userdata
-
 
 ## System Design
 
