@@ -242,11 +242,6 @@ deployed to elastic beanstalk
 
 ## System Design
 
-Jenkins Pipeline
-
-![system-design-pipeline](https://github.com/Antoniorios17/flask-app-jenkins-deployment/blob/main/images/d2-jenkins-pipeline.png)
-
-Elastic Beanstalk Diagram
 
 ![system-design-eb](https://github.com/Antoniorios17/flask-app-jenkins-deployment/blob/main/images/d2-jenkins-eb-diagram.png)
 
