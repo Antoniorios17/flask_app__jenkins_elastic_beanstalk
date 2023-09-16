@@ -1,7 +1,8 @@
 # KuraLabs
 
-Deployment 2
-Build, test and archive a flask application on Jenkins and deploy using AWS Elastic Beanstalk.
+Deployment 3
+Build, test and deploy  a flask application on AWS Elastic Beanstalk. 
+Automated pipeline with Jenkins
 
 ## Table of contents
 
@@ -15,20 +16,7 @@ Build, test and archive a flask application on Jenkins and deploy using AWS Elas
 
 ## Pre-requisites
 
-First we need to install the necessary plugins for the pipeline.
 
-Follow these steps:
-
-* Select Dashboard 
-  * Select Manage Jenkins
-  * Within System configuration look for "Plugins"
-  * From the available plugins look for "Pipeline Utility Steps"
-  * Install the plugin
-  * Restart the jenkins Controller to apply the changes
-    * Run the command: 
-    ```
-    sudo systemctl restart jenkins 
-    ```
 
 
 ## Install Jenkins
