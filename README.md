@@ -242,8 +242,7 @@ deployed to elastic beanstalk
 
 ## System Design
 
-
-![system-design-eb](https://github.com/Antoniorios17/flask-app-jenkins-deployment/blob/main/images/d2-jenkins-eb-diagram.png)
+![system-design-eb](https://github.com/Antoniorios17/flask_app_jenkins_elastic_beanstalk/blob/main/images/Deployment3.png)
 
 ## Additions
 
