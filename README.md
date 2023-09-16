@@ -253,6 +253,13 @@ Elastic Beanstalk Diagram
 ## Additions
 
 * Setup a Webhook
-
+  * Go to Github.com
+  * Enter the repository
+  * Click on settings
+  * Go to webhooks
+  * Add webhooks
+  * In the payload URL
+    * http://{public-ip-address}:8080/github-webhook/
+* If the webhook is set up correctly you will see a 200 ok http code
 
 ![webhook](https://github.com/Antoniorios17/flask_app_jenkins_elastic_beanstalk/blob/main/images/webhook.png)
