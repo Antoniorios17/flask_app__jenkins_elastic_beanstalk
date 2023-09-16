@@ -1,8 +1,7 @@
-# KuraLabs
+# Deploy a flask application on AWS Elastic Beanstalk.
 
-Deployment 3
-Build, test and deploy  a flask application on AWS Elastic Beanstalk.
-Automated pipeline with Jenkins
+Automated deployment pipeline with Jenkins.
+Build, test and deploy to AWS Elastic beanstalk
 
 ## Table of contents
 
