@@ -7,11 +7,14 @@ Automated pipeline with Jenkins
 ## Table of contents
 
 1. Install jenkins
-2. Create A Pipeline Build On Jenkins
-3. Jenkins CI/CD Pipeline
-4. Extract Build From EC2
-5. Deploy Application to Elastic Beanstalk
-6. System Design
+2. Pre-requisites
+3. Create A Pipeline Build On Jenkins
+4. Install AWS CLI
+5. 
+6. Jenkins CI/CD Pipeline
+7. 
+8. 
+9. System Design
 
 ## Install Jenkins
 
@@ -68,6 +71,70 @@ Before we start the working on jenkins we need to run the following commands:
   * Add personal access token as password
   * Validate connection to the repository
   * Apply and save configuration
+
+## Install AWS CLI
+
+Follow these steps:
+
+* Log in to the aws console
+* Look for IAM service
+* Click on users
+  * Under Security Credentials click on create access keys
+  * The Use case is Command Line Interface (CLI)
+  * Name your description Tag Value
+  * Select Create Access Key
+  * You will be shown your Access Key and Secret Access Key
+  * Make sure to store the values in a safe place you will not be able to see them again.
+* Access the EC2 running Jenkins through SSH
+* Run the following commands to install AWS CLI:
+
+    ```bash
+    # Download the files
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    
+    # Unzip the zip file
+    unzip awscliv2.zip
+    
+    # Run the installation file
+    sudo ./aws/install
+
+    # Check the installation was successfull
+    aws --version
+    ```
+
+* Configure the AWS credentials
+
+    ```bash
+    # Run this command
+    aws configure
+
+    # Insert Access key
+    # Insert Secret Access key
+
+    # Region us-east-1
+
+    # Default Output format: json
+    ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   * 
 
 ## Jenkins CI/CD Pipeline
 
@@ -135,6 +202,7 @@ Once the credentials are complete Jenkins will start the pipeline
     * deploy to elastic beanstalk
     * 
 * Successful execution of all stages can be seen in the Jenkins GUI
+
   
 ![jenkins-stages](https://github.com/Antoniorios17/flask-app-jenkins-deployment/blob/main/images/d2-jenkins-stages.png)
 
@@ -142,7 +210,7 @@ deployed to elastic beanstalk
 
 ![elastic-beanstalk](https://github.com/Antoniorios17/flask-app-jenkins-deployment/blob/main/images/d2-eb-ok-health.png)
 
-14. The Flask app is now deployed on Elastic Beanstalk. Access it using the provided Domain Name.
+1.  The Flask app is now deployed on Elastic Beanstalk. Access it using the provided Domain Name.
 
 ![url-shortenet-webpage](https://github.com/Antoniorios17/flask-app-jenkins-deployment/blob/main/images/d2-app-website.png)
 
