@@ -226,21 +226,16 @@ deployed to elastic beanstalk
 
 ## Troubleshooting
 
-* Issues to troubleshoot
-  * The pipeline doesn't run after connecting to the repository
-    * Solutions:
-      * Installing the plugin "Pipeline Utility Steps"
-      * Important step! restart the controller after installing new plugins
-  * Build stage fails
-    * The build failed becuase it was missing python virtual environment
-      * Solutions:
-        * run the command on the terminal:
+* Build stage fails
+  * The build failed becuase it was missing python virtual environment
+  * Solutions:
+  * run the command on the terminal:
 
-          ```
-          sudo apt install python3.10-venv -y
-          ```
+       ```bash
+       sudo apt install python3.10-venv -y
+       ```
 
-        * This will install the virtual environment library to run the build stage
+  * This will install the virtual environment library to run the build stage
 
 * Important information
   * When using the jenkins installation script it will take a few minutes to run completely when added to userdata
@@ -257,3 +252,7 @@ Elastic Beanstalk Diagram
 
 ## Additions
 
+* Setup a Webhook
+
+
+![webhook](https://github.com/Antoniorios17/flask_app_jenkins_elastic_beanstalk/blob/main/images/webhook.png)
